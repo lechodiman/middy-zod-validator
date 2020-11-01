@@ -1,0 +1,37 @@
+{
+  "name": "zod-validator",
+  "version": "1.0.0",
+  "description": "Middleware to use zod validations with the middy middleware library",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prepare": "yarn build",
+    "test": "jest --config jestconfig.json",
+    "build": "tsc",
+    "clean": "rimraf ./lib"
+  },
+  "keywords": [
+    "middy",
+    "zod",
+    "zod-validator",
+    "validator",
+    "serverless",
+    "aws"
+  ],
+  "author": "Luis Chodiman",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.64",
+    "@types/http-errors": "^1.8.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.5"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "dependencies": {
+    "@middy/core": "^1.4.0",
+    "http-errors": "^1.8.0",
+    "zod": "^1.11.10"
+  }
+}
