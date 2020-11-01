@@ -6,6 +6,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "prepare": "yarn build",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
     "test": "jest --config jestconfig.json",
     "build": "tsc",
     "clean": "rimraf ./lib"
