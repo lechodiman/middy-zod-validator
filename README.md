@@ -49,7 +49,7 @@ const event = {
 };
 
 handler(event, {}, (err, res) => {
-  // err will be a ZodError
+  // err will be a BadRequestError
 });
 ```
 
