@@ -20,7 +20,7 @@ npm i --save middy-zod-validator
 
 ## Options
 
-- `schema`: (zod schema) (optional): The `zod` schema that will be used to parse the input (`handler.event`) of the Lambda handler.
+- `schema`: (zod schema) (optional): The `zod` schema that will be used to parse the input (`handler.event`) of the Lambda handler. **It can be either a syncronous or an asyncronous schema**
 
 ## Sample usage
 
