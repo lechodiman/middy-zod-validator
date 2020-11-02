@@ -2,8 +2,9 @@ import middy from '@middy/core';
 import { zodValidator } from '../middy-zod-validator';
 import * as z from 'zod';
 import { Context } from 'aws-lambda';
+import createHttpError from 'http-errors';
 
-test('should return an error if the schema does not pass', async () => {
+test('should return a Bad Request error if the schema does not pass', async () => {
   const schema = z.object({
     id: z.string(),
   });
@@ -12,7 +13,6 @@ test('should return an error if the schema does not pass', async () => {
   handler.use(zodValidator(schema));
 
   handler({}, {} as Context, (error) => {
-    console.log(error);
-    expect(error).toBeInstanceOf(Error);
+    expect(error).toBeInstanceOf(createHttpError.BadRequest);
   });
 });
