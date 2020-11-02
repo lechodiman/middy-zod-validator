@@ -14,7 +14,7 @@ export function zodValidator(
       try {
         await schema.parseAsync(handler.event);
       } catch (error) {
-        throw new createHttpError.UnprocessableEntity(error);
+        throw new createHttpError.BadRequest(error);
       }
 
       return next();
