@@ -1,0 +1,29 @@
+service:
+  name: example
+
+frameworkVersion: "2"
+
+custom:
+  example: custom-variable
+
+plugins:
+  - serverless-bundle
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  apiGateway:
+    minimumCompressionSize: 1024
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+
+functions:
+  hello:
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          method: get
+          path: hello
