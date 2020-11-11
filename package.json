@@ -10,7 +10,8 @@
     "postversion": "git push && git push --tags",
     "test": "jest --config jestconfig.json",
     "build": "tsc",
-    "clean": "rimraf ./lib"
+    "clean": "rimraf ./lib",
+    "deploy": "npm version patch && npm publish"
   },
   "keywords": [
     "middy",
