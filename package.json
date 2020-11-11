@@ -1,6 +1,6 @@
 {
   "name": "middy-zod-validator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Middleware to use zod validations with the middy middleware library",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
