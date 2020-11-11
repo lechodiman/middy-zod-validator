@@ -44,6 +44,6 @@
   "dependencies": {
     "@middy/core": "^1.4.0",
     "http-errors": "^1.8.0",
-    "zod": "^1.11.10"
+    "zod": "^2.0.0-beta.21"
   }
 }
