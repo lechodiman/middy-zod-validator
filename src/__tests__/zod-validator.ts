@@ -1,5 +1,5 @@
 import middy from '@middy/core';
-import { zodValidator } from '../middy-zod-validator';
+import { zodValidator } from '../';
 import * as z from 'zod';
 import { Context } from 'aws-lambda';
 import createHttpError from 'http-errors';
