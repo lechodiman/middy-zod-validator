@@ -1,8 +1,8 @@
-import middy from "@middy/core";
-import { zodValidator } from "../";
-import { z } from "zod";
-import { Context, Handler } from "aws-lambda";
-import createHttpError from "http-errors";
+import middy from '@middy/core';
+import { zodValidator } from '../';
+import { z } from 'zod';
+import { Context, Handler } from 'aws-lambda';
+import createHttpError from 'http-errors';
 
 const eventSchema = z.strictObject({
   id: z.string(),
@@ -10,14 +10,14 @@ const eventSchema = z.strictObject({
 
 type EventSchema = z.infer<typeof eventSchema>;
 
-const schemaParseAsyncSpy = jest.spyOn(eventSchema, "parseAsync");
+const schemaParseAsyncSpy = jest.spyOn(eventSchema, 'parseAsync');
 
 const response = { statusCode: 200 };
 const baseHandler: Handler<EventSchema> = async () => response;
 const middyfiedHandler = middy(baseHandler).use(zodValidator(eventSchema));
 
-test("zod-validator should evaluate valid request with schema parseAsync method and resolve", async () => {
-  const validEvent: EventSchema = { id: "foo" };
+test('zod-validator should evaluate valid request with schema parseAsync method and resolve', async () => {
+  const validEvent: EventSchema = { id: 'foo' };
 
   await expect(
     zodValidator(eventSchema).before({
@@ -32,8 +32,8 @@ test("zod-validator should evaluate valid request with schema parseAsync method 
   expect(schemaParseAsyncSpy).toBeCalledWith(validEvent);
 });
 
-test("zod-validator should evaluate invalid request with schema parseAsync method and reject error", async () => {
-  const invalidEvent: EventSchema = { someKey: "someValue" } as EventSchema; // satisfy ts compiler
+test('zod-validator should evaluate invalid request with schema parseAsync method and reject error', async () => {
+  const invalidEvent: EventSchema = { someKey: 'someValue' } as unknown as EventSchema; // satisfy ts compiler
 
   await expect(
     zodValidator(eventSchema).before({
@@ -48,20 +48,20 @@ test("zod-validator should evaluate invalid request with schema parseAsync metho
   expect(schemaParseAsyncSpy).toBeCalledWith(invalidEvent);
 });
 
-test("middyfied handler should resolve if the schema passes validation", async () => {
-  const validEvent = { id: "foo" };
+test('middyfied handler should resolve if the schema passes validation', async () => {
+  const validEvent = { id: 'foo' };
 
-  await expect(
-    middyfiedHandler(validEvent, {} as Context)
-  ).resolves.toStrictEqual(response);
+  await expect(middyfiedHandler(validEvent, {} as Context)).resolves.toStrictEqual(
+    response
+  );
 
   expect(schemaParseAsyncSpy).toBeCalledWith(validEvent);
 });
 
-test("middyfied handler should reject a Bad Request error if the schema does not pass", async () => {
-  const invalidEvent = { someKey: "someValue" };
+test('middyfied handler should reject a Bad Request error if the schema does not pass', async () => {
+  const invalidEvent = { someKey: 'someValue' };
   await expect(
-    middyfiedHandler(invalidEvent as EventSchema, {} as Context)
+    middyfiedHandler(invalidEvent as unknown as EventSchema, {} as Context)
   ).rejects.toBeInstanceOf(createHttpError.BadRequest);
 
   expect(schemaParseAsyncSpy).toBeCalledWith(invalidEvent);
